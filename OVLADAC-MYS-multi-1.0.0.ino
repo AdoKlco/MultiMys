@@ -1,5 +1,6 @@
 /*
-    zapojte nasledovne
+    zapojte nasledovne:
+    
     ultrasonik TRIG == d2, ECHO == 3
     motory D1, D2 ak by to slo naopak tak prepojte motory
     IR senzor == D11
@@ -13,7 +14,7 @@
 
 #include <IRremote.h>
 #include <Servo.h>
-//#include <MsTimer2.h> (bije sa to s ovladacom)
+//#include <MsTimer2.h> (bije sa to s IR ovladacom)
 
 #define VLAVO 0xFF22DD
 #define VPRAVO 0xFFC23D
@@ -137,7 +138,7 @@ void zahraj(long frekvencia, long dlzka)
         
     while (pocet > 0)
     {
-      pocet--;     // to iste ako pocet = pocet - 1;
+      pocet--;
       digitalWrite(7, 1);
       delayMicroseconds(polperioda);
       digitalWrite(7, 0);
@@ -212,18 +213,17 @@ void loop()
 {
     vysli_pulz();
     delay(20);
-    //!!!AK MATE AJ DRUHY IR SENZOR TAK OTKOMENTUJTE TOTO ↓↓↓ !!!!
     
-    /*if (ovladac2.decode(&vysledky))  
+    if (ovladac2.decode(&vysledky))  
     {    
       akcia();
-      ovladac.resume();
-    }*/
+      ovladac2.resume();
+    }
 
     if (ovladac.decode(&vysledky)) 
     {
       akcia();    
-      ovladac2.resume();
+      ovladac.resume();
     }
     
     if (ciaratrue == 1)
