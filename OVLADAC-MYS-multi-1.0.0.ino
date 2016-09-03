@@ -1,6 +1,19 @@
+/*
+    zapojte nasledovne
+    ultrasonik TRIG == d2, ECHO == 3
+    motory D1, D2 ak by to slo naopak tak prepojte motory
+    IR senzor == D11
+    IR senzor == D12 (nemusi byt)
+    senzor na sledovanie ciary 1 == A1, 2 == A2, 3 == A3
+    sirenka == D7
+*/
+
+
+
+
 #include <IRremote.h>
 #include <Servo.h>
-//#include <MsTimer2.h>
+//#include <MsTimer2.h> (bije sa to s ovladacom)
 
 #define VLAVO 0xFF22DD
 #define VPRAVO 0xFFC23D
@@ -16,7 +29,7 @@
 Servo motor;
 Servo motor1;
 
-int vychilkaserva1 = -4;
+int vychilkaserva1 = 0; //sem si nastavte pripadnu odchylku motorov
 int vychilkaserva = 0;
 int sensor1Value = analogRead(1);
 int sensor2Value = analogRead(2);
@@ -199,13 +212,15 @@ void loop()
 {
     vysli_pulz();
     delay(20);
-    if (ovladac.decode(&vysledky)) 
+    //!!!AK MATE AJ DRUHY IR SENZOR TAK OTKOMENTUJTE TOTO ↓↓↓ !!!!
+    
+    /*if (ovladac2.decode(&vysledky))  
     {    
       akcia();
       ovladac.resume();
-    }
+    }*/
 
-    if (ovladac2.decode(&vysledky)) 
+    if (ovladac.decode(&vysledky)) 
     {
       akcia();    
       ovladac2.resume();
